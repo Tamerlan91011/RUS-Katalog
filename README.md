@@ -4,8 +4,6 @@
 Повторитель [Яндекс Маркета](https://market.yandex.ru), 
 Магазин Электроники с возможностями [Сбермаркета](https://sbermarket.ru)
 > Команда: Глазунов Тимур, Мантуленко Андрей, Костина Юлия
-> 
-> ![visitor badge](https://visitor-badge.glitch.me/badge?page_id=Tamerlan91011/RUS-Katalog.visitor-badge)
 ## Основные функции 
 
 **Пользователя:**
