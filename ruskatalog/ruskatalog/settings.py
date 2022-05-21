@@ -77,10 +77,28 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'products',
+        'USER': 'postgres',
+        'PASSWORD': '5432',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
+
+    'mssql': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'products',
+        'HOST': "ACER-ASPIRE3",
+        'PORT': '',
+        'COLLATION': 'Cyrillic_General_CI_AS',
+        'OPTIONS': {
+                'driver': 'ODBC Driver 17 for SQL Server',
+                'collation': 'Cyrillic_General_CI_AS',
+            },
+    },
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
