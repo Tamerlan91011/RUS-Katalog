@@ -14,7 +14,7 @@ class Answer(models.Model):
     content = models.TextField(db_column='Content')  # Field name made lowercase.
 
     def __str__(self):
-        return str(self.question) + ' Ответ: ' + str(self.content)
+        return f"{self.question} Ответ: {self.content}"
 
     class Meta:
         managed = False
@@ -28,7 +28,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
     class Meta:
         db_table = 'category'
@@ -58,8 +57,7 @@ class Question(models.Model):
     content = models.TextField(db_column='Content', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self) -> str:
-        return str(self.id)+ ': '+ self.content
-    
+        return f"{self.id}: {self.content}"
 
     class Meta:
         managed = False
@@ -87,20 +85,11 @@ class Specification(models.Model):
     unit = models.TextField(db_column='Unit')  # Field name made lowercase.
 
     def __str__(self):
-        return (self.name + ': ' + self.unit)
+        return f"{self.name}: {self.unit}"
 
     class Meta:
         managed = False
         db_table = 'specification'
-
-
-class SpecificationToProduct(models.Model):
-    product = models.ForeignKey(Product, models.DO_NOTHING, db_column='Product_ID')  # Field name made lowercase.
-    specification_value = models.ForeignKey('SpecificationValue', models.DO_NOTHING, db_column='Specification_value_ID')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'specification_to_product'
 
 
 class SpecificationValue(models.Model):
@@ -110,6 +99,27 @@ class SpecificationValue(models.Model):
     value_float_field = models.FloatField(db_column='Value(float)', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
     value_string_field = models.CharField(db_column='Value(string)', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
 
+    def __str__(self):
+        if self.value_string_field is not None:
+            return f"{self.specification.name}: {self.value_string_field} {self.specification.unit}"
+        elif self.value_float_field is not None:
+            return f"{self.specification.name}: {self.value_float_field} {self.specification.unit}"
+        else:
+            return f"{self.specification.name}: {self.value_int_field} {self.specification.unit}"
+
     class Meta:
         managed = False
         db_table = 'specification_value'
+
+
+class SpecificationToProduct(models.Model):
+    id = models.IntegerField(db_column='ID', primary_key=True)
+    product = models.ForeignKey(Product, models.DO_NOTHING, db_column='Product_ID')  # Field name made lowercase.
+    specification_value = models.ForeignKey('SpecificationValue', models.DO_NOTHING, db_column='Specification_value_ID')  # Field name made lowercase.
+
+    def __str__(self):
+        return f"{self.product.brand} {self.product.model} - {self.specification_value}"
+
+    class Meta:
+        managed = False
+        db_table = 'specification_to_product'

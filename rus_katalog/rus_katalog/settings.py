@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
-    'delivery'
+    'delivery',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'products',
         'USER': 'postgres',
-        'PASSWORD': '5432',
+        'PASSWORD': 'am14102001',
         'HOST': 'localhost',
         'PORT': '5432',
     },
@@ -95,7 +96,7 @@ DATABASES = {
     'db_delivery': {
         'ENGINE': 'mssql',
         'NAME': 'products',
-        'HOST': "ACER-ASPIRE3",
+        'HOST': "DESKTOP",
         'PORT': '',
         #'COLLATION': 'Cyrillic_General_CI_AS',
         'OPTIONS': {
@@ -128,9 +129,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

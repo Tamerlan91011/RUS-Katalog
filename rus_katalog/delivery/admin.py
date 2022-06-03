@@ -5,28 +5,35 @@ from .models import *
 
 
 class ClientsAdmin(admin.ModelAdmin):
-    list_display = ['id','email','fullname','phone','isadmin'] 
+    list_display = ['id', 'email', 'fullname', 'phone', 'isadmin']
+
 
 class CourierAdmin(admin.ModelAdmin):
-    list_display = ['id','email','fullname','phone','status']
+    list_display = ['id', 'email', 'fullname', 'phone', 'status']
+
 
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ['id','date', 'status','courier','delivery_address','client']
+    list_display = ['id', 'date', 'status', 'courier', 'delivery_address', 'client']
+
 
 class FeedbacksAdmin(admin.ModelAdmin):
-    list_display = ['rating','advantages', 'disadvantages','comment','pio']
+    list_display = ['rating', 'advantages', 'disadvantages','comment','pio']
+
 
 class AddressesToShopsAdmin(admin.ModelAdmin):
-    list_display = ['shop','address']
+    list_display = ['shop', 'address']
+
 
 class AddressesToClientsAdmin(admin.ModelAdmin):
-    list_display = ['client','address']
+    list_display = ['client', 'address']
+
 
 class ProductsInShopsAdmin(admin.ModelAdmin):
-    list_display = ['product_id','shop']
+    list_display = ['product_id', 'shop', 'price']
+
 
 class ProductsInOrdersAdmin(admin.ModelAdmin):
-    list_display = ['product','order']
+    list_display = ['product', 'order']
 
 
 admin.site.register(Client, ClientsAdmin)

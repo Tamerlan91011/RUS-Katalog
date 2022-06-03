@@ -16,7 +16,10 @@ class Address(models.Model):
     flat = models.IntegerField(db_column='Flat', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self):
-        return (self.city +', '+ self.street + ', ' + self.house + ', ' + str(self.flat))
+        if self.flat is not None:
+            return f"{self.city}, {self.street}, {self.house}, {self.flat}"
+        else:
+            return f"{self.city}, {self.street}, {self.house}"
 
     class Meta:
         managed = False
@@ -51,7 +54,6 @@ class Client(models.Model):
     fullname = models.CharField(db_column='Fullname', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     isadmin = models.BooleanField(db_column='isAdmin')  # Field name made lowercase.
 
-
     def __str__(self):
         return self.fullname
 
@@ -69,7 +71,6 @@ class Courier(models.Model):
 
     def __str__(self):
         return self.phone
-
 
     class Meta:
         managed = False
@@ -97,7 +98,8 @@ class Orders(models.Model):
     delivery_address = models.CharField(db_column='Delivery_address', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
 
     def __str__(self):
-        return str(self.id)
+        return f"Заказ №{self.id} - {self.status} - {self.date}"
+
     class Meta:
         managed = False
         db_table = 'Orders'
@@ -113,21 +115,20 @@ class ProductsInOrders(models.Model):
     def __str__(self) -> str:
         return str(self.product) + '. Заказ с ID = ' + str(self.order)
 
-
     class Meta:
         managed = False
         db_table = 'Products_in_Orders'
 
 
 class ProductsInShops(models.Model):
-    product_id = models.IntegerField(db_column='Product_ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)
+    product_id = models.IntegerField(db_column='Product_ID')  # Field name made lowercase.
     shop = models.ForeignKey('Shop', models.DO_NOTHING, db_column='Shop_ID')  # Field name made lowercase.
     price = models.DecimalField(db_column='Price', max_digits=18, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
     available_amount = models.IntegerField(db_column='Available_amount', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self) -> str:
-        return 'Товар с ID = '+ str(self.product_id) + ' в магазине: ' + str(self.shop)
-
+        return f"Товар с ID = {self.product_id} в магазине: {self.shop}"
 
     class Meta:
         managed = False
@@ -141,8 +142,8 @@ class Shop(models.Model):
     rating = models.FloatField(db_column='Rating', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self):
-        return self.name + ': ' + str(self.rating)
+        return f"{self.name}: {self.rating}"
+
     class Meta:
         managed = False
         db_table = 'Shop'
-
