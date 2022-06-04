@@ -52,7 +52,7 @@ class Client(models.Model):
     phone = models.CharField(db_column='Phone', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
     password = models.CharField(db_column='Password', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     fullname = models.CharField(db_column='Fullname', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    isadmin = models.BooleanField(db_column='isAdmin')  # Field name made lowercase.
+    isadmin = models.BooleanField(db_column='isAdmin', default=False)  # Field name made lowercase.
 
     def __str__(self):
         return self.fullname
@@ -79,9 +79,9 @@ class Courier(models.Model):
 
 class Feedback(models.Model):
     pio = models.OneToOneField('ProductsInOrders', models.DO_NOTHING, db_column='PiO_ID', primary_key=True)  # Field name made lowercase.
-    advantages = models.CharField(db_column='Advantages', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    disadvantages = models.CharField(db_column='Disadvantages', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    comment = models.CharField(db_column='Comment', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    advantages = models.TextField(db_column='Advantages', db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    disadvantages = models.TextField(db_column='Disadvantages', db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    comment = models.TextField(db_column='Comment', db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
     rating = models.FloatField(db_column='Rating', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
@@ -124,7 +124,7 @@ class ProductsInShops(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     product_id = models.IntegerField(db_column='Product_ID')  # Field name made lowercase.
     shop = models.ForeignKey('Shop', models.DO_NOTHING, db_column='Shop_ID')  # Field name made lowercase.
-    price = models.DecimalField(db_column='Price', max_digits=18, decimal_places=0, blank=True, null=True)  # Field name made lowercase.
+    price = models.FloatField(db_column='Price', blank=True, null=True)  # Field name made lowercase.
     available_amount = models.IntegerField(db_column='Available_amount', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self) -> str:
@@ -138,7 +138,7 @@ class ProductsInShops(models.Model):
 
 class Shop(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(db_column='Name', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    name = models.CharField(db_column='Name', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     rating = models.FloatField(db_column='Rating', blank=True, null=True)  # Field name made lowercase.
 
     def __str__(self):

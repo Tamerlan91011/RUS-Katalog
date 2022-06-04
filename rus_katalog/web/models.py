@@ -9,7 +9,7 @@ from django.db import models
 
 
 class Answer(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     question = models.ForeignKey('Question', models.DO_NOTHING, db_column='Question_ID')  # Field name made lowercase.
     content = models.TextField(db_column='Content')  # Field name made lowercase.
 
@@ -22,7 +22,7 @@ class Answer(models.Model):
 
 
 class Category(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
     parent_category = models.ForeignKey('self', models.DO_NOTHING, db_column='Parent_Category_ID', blank=True, null=True)  # Field name made lowercase.
 
@@ -34,7 +34,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     brand = models.CharField(db_column='Brand', max_length=255)  # Field name made lowercase.
     model = models.CharField(db_column='Model', max_length=255)  # Field name made lowercase.
     item_number = models.CharField(db_column='Item_number', max_length=255)  # Field name made lowercase.
@@ -50,7 +50,7 @@ class Product(models.Model):
 
 
 class Question(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     product = models.ForeignKey(Product, models.DO_NOTHING, db_column='Product_ID')  # Field name made lowercase.
     username = models.CharField(db_column='Username', max_length=255)  # Field name made lowercase.
     article = models.CharField(db_column='Article', max_length=255)  # Field name made lowercase.
@@ -65,7 +65,7 @@ class Question(models.Model):
 
 
 class Review(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     product = models.ForeignKey(Product, models.DO_NOTHING, db_column='Product_ID')  # Field name made lowercase.
     username = models.CharField(db_column='Username', max_length=255)  # Field name made lowercase.
     article = models.CharField(db_column='Article', max_length=255)  # Field name made lowercase.
@@ -79,13 +79,13 @@ class Review(models.Model):
 
 
 class Specification(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=255)  # Field name made lowercase.
     description = models.TextField(db_column='Description', blank=True, null=True)  # Field name made lowercase.
     unit = models.TextField(db_column='Unit')  # Field name made lowercase.
 
     def __str__(self):
-        return f"{self.name}: {self.unit}"
+        return f"{self.id} - {self.name}: {self.unit}"
 
     class Meta:
         managed = False
@@ -93,7 +93,7 @@ class Specification(models.Model):
 
 
 class SpecificationValue(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     specification = models.ForeignKey(Specification, models.DO_NOTHING, db_column='Specification_ID')  # Field name made lowercase.
     value_int_field = models.IntegerField(db_column='Value(int)', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
     value_float_field = models.FloatField(db_column='Value(float)', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
@@ -113,7 +113,7 @@ class SpecificationValue(models.Model):
 
 
 class SpecificationToProduct(models.Model):
-    id = models.IntegerField(db_column='ID', primary_key=True)
+    id = models.AutoField(db_column='ID', primary_key=True)
     product = models.ForeignKey(Product, models.DO_NOTHING, db_column='Product_ID')  # Field name made lowercase.
     specification_value = models.ForeignKey('SpecificationValue', models.DO_NOTHING, db_column='Specification_value_ID')  # Field name made lowercase.
 
