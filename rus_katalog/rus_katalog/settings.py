@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'delivery',
+    'nosql',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -73,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rus_katalog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -99,14 +97,21 @@ DATABASES = {
         'NAME': 'products',
         'HOST': "DESKTOP",
         'PORT': '',
-        #'COLLATION': 'Cyrillic_General_CI_AS',
+        # 'COLLATION': 'Cyrillic_General_CI_AS',
         'OPTIONS': {
-                'driver': 'ODBC Driver 17 for SQL Server'
-                #'collation': 'Cyrillic_General_CI_AS',
+            'driver': 'ODBC Driver 17 for SQL Server'
+            # 'collation': 'Cyrillic_General_CI_AS',
         },
-    }
-}
+    },
 
+    'db_nosql': {
+        'ENGINE': 'djongo',
+        'NAME': 'rus_katalog',
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017',
+        }
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -126,7 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -138,18 +142,21 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = "/images/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "images")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DATABASE_ROUTERS = ['routers.db_routers.AuthRouter','routers.db_routers.WebRouter', 'routers.db_routers.DeliveryRouter']
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter', 'routers.db_routers.WebRouter',
+                    'routers.db_routers.DeliveryRouter', 'routers.db_routers.NoSQLRouter']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
