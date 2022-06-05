@@ -27,7 +27,10 @@ class ProductAPIView(APIView):
                 return Response(b'[{\"product\": ' + JSONRenderer().render(productSerializer.data) + b'}, {\"specList\": ' +
                                 JSONRenderer().render(specSerializer.data) + b'}]')
             if len(products_id) > 0:
-                products = Product.objects.filter(id__in=products_id)
+                products = []
+                for id in products_id:
+                    product = Product.objects.filter(id=id)
+                    products.append(product[0])
                 serializer = ProductSerializer(products, many=True)
                 return Response(b'\"products\": ' + JSONRenderer().render(serializer.data))
             if category_id is not None:

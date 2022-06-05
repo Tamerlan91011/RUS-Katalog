@@ -45,6 +45,12 @@ class ProductsInOrdersSerializer(serializers.ModelSerializer):
         fields = ('id', 'order', 'shop')
 
 
+class ProductsInOrdersFullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductsInOrders
+        fields = ('id', 'order', 'product', 'shop', 'amount')
+
+
 class FeedbackSerializer(serializers.ModelSerializer):
     pio = ProductsInOrdersSerializer()
 
@@ -57,4 +63,39 @@ class ClientFullSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ('id', 'email', 'phone', 'password', 'fullname', 'isadmin')
+
+
+class OrderFullSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
+        fields = ('id', 'courier', 'client', 'status', 'date', 'delivery_address')
+
+
+class OrdersOfClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
+        fields = ('id', 'status', 'date', 'delivery_address')
+
+
+class ProductsInOrdersOfClientSerializer(serializers.ModelSerializer):
+    order = OrdersOfClientSerializer()
+    shop = ProductsInShopsSerializer()
+
+    class Meta:
+        model = ProductsInOrders
+        fields = ('id', 'order', 'product', 'shop', 'amount')
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ('id', 'city', 'street', 'house', 'flat')
+
+
+class AddressesToClientsSerializer(serializers.ModelSerializer):
+    address = AddressSerializer()
+
+    class Meta:
+        model = AddressesToClients
+        fields = ('address',)
 

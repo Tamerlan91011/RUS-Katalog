@@ -5,13 +5,15 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+import datetime
+
 from django.db import models
 
 
 class Address(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    city = models.CharField(db_column='City', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    street = models.CharField(db_column='Street', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    city = models.CharField(db_column='City', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    street = models.CharField(db_column='Street', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     house = models.CharField(db_column='House', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     flat = models.IntegerField(db_column='Flat', blank=True, null=True)  # Field name made lowercase.
 
@@ -48,10 +50,10 @@ class AddressesToShops(models.Model):
 
 class Client(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    phone = models.CharField(db_column='Phone', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    password = models.CharField(db_column='Password', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    fullname = models.CharField(db_column='Fullname', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    phone = models.CharField(db_column='Phone', max_length=50, db_collation='Cyrillic_General_CI_AS', blank=True, unique=True)  # Field name made lowercase.
+    password = models.CharField(db_column='Password', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    fullname = models.CharField(db_column='Fullname', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     isadmin = models.BooleanField(db_column='isAdmin', default=False)  # Field name made lowercase.
 
     def __str__(self):
@@ -63,10 +65,10 @@ class Client(models.Model):
 
 class Courier(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     phone = models.CharField(db_column='Phone', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    password = models.CharField(db_column='Password', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    fullname = models.CharField(db_column='Fullname', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    password = models.CharField(db_column='Password', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    fullname = models.CharField(db_column='Fullname', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
     status = models.CharField(db_column='Status', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
 
     def __str__(self):
@@ -93,9 +95,9 @@ class Orders(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     courier = models.ForeignKey(Courier, models.DO_NOTHING, db_column='Courier_ID')  # Field name made lowercase.
     client = models.ForeignKey(Client, models.DO_NOTHING, db_column='Client_ID')  # Field name made lowercase.
-    status = models.CharField(db_column='Status', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
-    date = models.DateField(db_column='Date')  # Field name made lowercase.
-    delivery_address = models.CharField(db_column='Delivery_address', max_length=50, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    status = models.CharField(db_column='Status', max_length=255, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
+    date = models.DateField(db_column='Date', default=datetime.date.today)  # Field name made lowercase.
+    delivery_address = models.CharField(db_column='Delivery_address', max_length=560, db_collation='Cyrillic_General_CI_AS')  # Field name made lowercase.
 
     def __str__(self):
         return f"Заказ №{self.id} - {self.status} - {self.date}"

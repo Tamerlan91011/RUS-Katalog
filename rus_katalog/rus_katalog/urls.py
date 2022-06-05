@@ -31,4 +31,6 @@ urlpatterns = [
     path('api/auth/login/', delivery.views.LoginAPIView.as_view()),
     path('api/auth/logout/', delivery.views.LogoutAPIView.as_view()),
     path('api/auth/register/', delivery.views.RegisterAPIView.as_view()),
+    path('api/address/', delivery.views.AddressAPIView.as_view()),
+    path('api/orders/', delivery.views.OrderAPIView.as_view()),
 ]
