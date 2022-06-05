@@ -9,8 +9,6 @@ from django.contrib.auth import authenticate
 from .serializers import *
 
 
-
-
 class PriceAPIView(APIView):
     def get(self, request):
         product_id = request.query_params.get('product_id')
@@ -124,6 +122,7 @@ class LoginAPIView(APIView):
             return Response({'error': 'Токен не найден'})
 
     def post(self, request):
+        print(1)
         phone = request.query_params.get('phone')
         email = request.query_params.get('email')
         if not phone and not email:
@@ -134,11 +133,13 @@ class LoginAPIView(APIView):
                 return Response({'error': 'Пользователь не найден'})
         else:
             try:
+                print(2)
                 client = Client.objects.get(email=request.data['email'], password=request.data['password'])
                 user = authenticate(username=client.phone, password=client.password)
             except Exception as ex:
                 print(ex)
                 return Response({'error': 'Пользователь не найден'})
+        print(3)
         token = Token.objects.get_or_create(user=user)
         return Response(f"{{\"token\": \"{token[0].key}\"}}".encode('utf-8'))
 
