@@ -1,12 +1,13 @@
 # [![Typing SVG](https://readme-typing-svg.herokuapp.com?size=40&color=%2336BCF7&lines=RUS-Katalog)](https://git.io/typing-svg)
 
+![](/Img/client_1.jpg)
 # Веб-сервис по отслеживанию товаров электронной и бытовой техники в магазинах-партнерах с возможностью оформления доставки на дом
 
-| Команда                |             | 
-| -------------          |-------------| 
-| Глазунов Тимур         | [Tamerlan91011](https://github.com/Tamerlan91011)  |
-| Мантуленко Андрей      | [Tapo4ek-exe](https://github.com/Tapo4ek-exe)      |
-| Костина Юля            | [Julik2001](https://github.com/Julik2001)          |
+| Команда                |   GitHub          | Сфера влияния     |
+| -------------          |-------------| ---- |
+| Глазунов Тимур         | [Tamerlan91011](https://github.com/Tamerlan91011)  | Backend: Django, Routers | 
+| Мантуленко Андрей      | [Tapo4ek-exe](https://github.com/Tapo4ek-exe)      | Frontend: Flutter, API     |
+| Костина Юля            | [Julik2001](https://github.com/Julik2001)          | Backend: NoSQL, SQL Queries       |
 
 RUS-Katalog - это: 
 * Аналог [ECatalog](https://vk.com/ekatalog.official); 
@@ -111,7 +112,9 @@ RUS-Katalog - это:
 
 ### Фактическая реализация:
 
-> ЗДЕСЬ МОГ БЫТЬ СКРИНШОТ ВАШЕГО КЛИЕНТСКОГО ПРИЛОЖЕНИЯ
+![](/Img/client_1.jpg)
+![](/Img/client_2.jpg)
+![](/Img/client_3.jpg)
 
 </details>
 
